@@ -1,18 +1,20 @@
 //@return string (url)
-function get_pic_url(ss,num) {
+function get_pic_url(ss) {
   var url;
+  //var randamid;
   var quizNum = ss.getRange('H2').getValue();
 
-  url = ss.getRange('B'+quizNum).getValue();
+  url = ss.getRange('C'+quizNum).getValue();
+  //'https://cdn-ak.f.st-hatena.com/images/fotolife/p/purasia8/20190325/20190325121317.jpg';
+
   return url;
 }
 
-function answer_miss(ss){
+function nameget(ss){
 
   var name ="";
-
-  //name = 
-
+  quizNum = ss.getRange('H2').getValue();
+  name = ss.getRange('A'+quizNum).getValue();
 
   return name;
 }

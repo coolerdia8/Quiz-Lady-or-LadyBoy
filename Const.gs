@@ -9,7 +9,12 @@ var GOOGLE_DOCS_ID = PROPERTIES.getProperty('GOOGLE_DOCS_ID');
 var doc = DocumentApp.openById(GOOGLE_DOCS_ID);
 
 var QUIZSTART ='クイズ開始';
+var ANSWER_MISS ='女';
+var ANSWER_OK ='おねぇ';
+var CONTINUE_YES='Yes';
+var CONTINUE_NO='NO';
+var QUIZNUMBERS='4';
+var ALLMARU ='全問正解!おめでとう!!';
+
 var News = 'タイのホットなニュース教えて';
 var NEWSMESSE ='こちらです↓\n';
-var ANSWER_MISS ='女';
-var ANSWER_OK ='オネエ';

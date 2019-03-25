@@ -21,8 +21,15 @@ function doPost(e) {
     var reply_messages='';
     var pic_url;
     var name;
+    var count=1;
+    var isquizNum =ss.getRange('H2').getValue();
     
-    //フラグで状態を判断
+    //Quizの初期化
+    if(isquizNum > QUIZNUMBERS ){
+      ss.getRange('H2').setValue(0);
+    }
+
+    //クイズの処理
     switch(String(com)){
       case QUIZSTART: //「リッチメニューより  
         　
@@ -34,16 +41,39 @@ function doPost(e) {
       case ANSWER_OK:
           reply_messages ='正解!';
           name = nameget(ss);
-          postLine(reply_messages, reply_token);
+          name = '写真の子は '+ name;
+          
+          //全問正解なら
+          if(isquizNum == QUIZNUMBERS){
+            reply_messages=ALLMARU;
+            ss.getRange('H2').setValue(0);
+            postAllLine(reply_messages, name,reply_token);
+          }else{
+            postALine(reply_messages, name,reply_token);          
+          }
           break;
-
-      case ANSWER_MISS:
+      case ANSWER_MISS://最初からを促す
           ss.getRange('H2').setValue(0);
+          reply_messages ='Nooooo!';
           
           postLine(reply_messages, reply_token);
           break;
 
-      //case CONTINUE_YES:
+      case CONTINUE_YES://つぎの問題へ
+          count = ss.getRange('H2').getValue();
+          count++;
+          ss.getRange('H2').setValue(count);
+
+          pic_url = get_pic_url(ss);
+
+          postPicQ2Line(pic_url,reply_token)
+      break;
+
+      case CONTINUE_NO:
+          ss.getRange('H2').setValue(0);
+          //postENDLine(reply_messages, name,reply_token);
+          postLine("Fin!", reply_token);    
+      break;
 
       default://それ以外    
           //reply_messages[0] =  "error!"; 
