@@ -15,27 +15,36 @@ function doPost(e) {
     var com = JSON.parse(e.postData.contents).events[0].message.text;
     
     //スプレッドシートの設定
-    var ss = SpreadsheetApp.openById('197pANRW1izagSakPgVj0TRaVMOX1CADz6zwev64v4bU');//スプレッドシート名（URL）
+    var ss = SpreadsheetApp.openById('1tSrQFSYdVVBJ_JR_HYqxeYKc3lHNSpjfTsR4NVqzQcs');//スプレッドシート名（URL）
     
     //変数設定
-    var reply_messages;
+    var reply_messages='';
     var pic_url;
+    var name;
     
     //フラグで状態を判断
     switch(String(com)){
-      case QUIZSTART: //「リッチメニューより    
-        　reply_messages ='準備中';
-          pic_url = get_pic_url();
-          
-          //pic_url = pic_arary[1]
+      case QUIZSTART: //「リッチメニューより  
+        　
+          ss.getRange('H2').setValue(1);
+          pic_url = get_pic_url(ss);
 
-          postPicAndText2Line(pic_url,reply_token)
+          postPicQ2Line(pic_url,reply_token)
           break;
-      case News:
-          reply_messages= getNews();
-          //postLine(NEWSMESSE, reply_token);
+      case ANSWER_OK:
+          reply_messages ='正解!';
+          name = nameget(ss);
           postLine(reply_messages, reply_token);
           break;
+
+      case ANSWER_MISS:
+          ss.getRange('H2').setValue(0);
+          
+          postLine(reply_messages, reply_token);
+          break;
+
+      //case CONTINUE_YES:
+
       default://それ以外    
           //reply_messages[0] =  "error!"; 
           postLine("error!", reply_token);
@@ -48,73 +57,4 @@ function doPost(e) {
    doc.getBody().appendParagraph(Logger.getLog()) 
  }
  doc.getBody().appendParagraph(Logger.getLog())  
-}
-
-function postPicAndText2Line(url,reply_token){
-    /*
-    * LINEに画像を返します
-    * @param{String}: 文字起こししたテキスト
-    */
-     try{    
-       var messages = [
-         {
-           "type": "image",
-           "originalContentUrl": url,
-           "previewImageUrl": url
-         },
-         {
-          "type": "text",
-          "text": 'test'
-         }
-       ]
-       //返信設定
-        var Rurl = 'https://api.line.me/v2/bot/message/reply';
-
-       var res = UrlFetchApp.fetch(Rurl, {
-         'headers': {
-           'Content-Type': 'application/json; charset=UTF-8',
-           'Authorization': 'Bearer ' + LINE_ACCESS_TOKEN,
-         },
-         'method': 'post',
-         'payload': JSON.stringify({
-           'replyToken': reply_token,
-           'messages': messages,
-         }),
-        });
-        } catch (e){
-            Logger.log("Error at function postPicLine: %s",e)  
-            doc.getBody().appendParagraph(Logger.getLog())
-        }
-}
-
-function postLine(text,reply_token){
-    /*
-    * LINEにテキストを返します
-    * @param{String}: 文字起こししたテキスト
-    */
-     try{    
-       var messages = [
-         {
-           "type": "text",
-           "text": text
-         }
-       ]
-       //返信設定
-        var Rurl = 'https://api.line.me/v2/bot/message/reply';
-
-       var res = UrlFetchApp.fetch(Rurl, {
-         'headers': {
-           'Content-Type': 'application/json; charset=UTF-8',
-           'Authorization': 'Bearer ' + LINE_ACCESS_TOKEN,
-         },
-         'method': 'post',
-         'payload': JSON.stringify({
-           'replyToken': reply_token,
-           'messages': messages,
-         }),
-        });
-        } catch (e){
-            Logger.log("Error at function postLine(text,reply_token): %s",e)  
-            doc.getBody().appendParagraph(Logger.getLog())
-        }
 }

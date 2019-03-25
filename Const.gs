@@ -11,3 +11,5 @@ var doc = DocumentApp.openById(GOOGLE_DOCS_ID);
 var QUIZSTART ='クイズ開始';
 var News = 'タイのホットなニュース教えて';
 var NEWSMESSE ='こちらです↓\n';
+var ANSWER_MISS ='女';
+var ANSWER_OK ='オネエ';

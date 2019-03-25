@@ -1,9 +1,18 @@
 //@return string (url)
-function get_pic_url() {
+function get_pic_url(ss,num) {
   var url;
-  var randamid;
+  var quizNum = ss.getRange('H2').getValue();
 
-  url = 'https://cdn-ak.f.st-hatena.com/images/fotolife/p/purasia8/20190325/20190325121317.jpg';
-
+  url = ss.getRange('B'+quizNum).getValue();
   return url;
+}
+
+function answer_miss(ss){
+
+  var name ="";
+
+  //name = 
+
+
+  return name;
 }
