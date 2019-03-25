@@ -19,12 +19,14 @@ function doPost(e) {
       
       //変数設定
       var reply_messages;
+      var pic_url;
       
       //フラグで状態を判断
       switch(String(com)){
         case QUIZSTART: //「リッチメニューより    
           　reply_messages ='準備中';
-            postLine(reply_messages, reply_token);
+           pic_url = 'https://cdn-ak.f.st-hatena.com/images/fotolife/p/purasia8/20190325/20190325121317.jpg';
+            postPicLine(pic_url, reply_token);
             break;
         case News:
             reply_messages= getNews();
@@ -43,6 +45,39 @@ function doPost(e) {
      doc.getBody().appendParagraph(Logger.getLog()) 
    }
    doc.getBody().appendParagraph(Logger.getLog())  
+  }
+  
+  function postPicLine(url,reply_token){
+      /*
+      * LINEに画像を返します
+      * @param{String}: 文字起こししたテキスト
+      */
+       try{    
+         var messages = [
+           {
+             "type": "image",
+             "originalContentUrl": url,
+             "previewImageUrl": url
+           }
+         ]
+         //返信設定
+          var Rurl = 'https://api.line.me/v2/bot/message/reply';
+  
+         var res = UrlFetchApp.fetch(Rurl, {
+           'headers': {
+             'Content-Type': 'application/json; charset=UTF-8',
+             'Authorization': 'Bearer ' + LINE_ACCESS_TOKEN,
+           },
+           'method': 'post',
+           'payload': JSON.stringify({
+             'replyToken': reply_token,
+             'messages': messages,
+           }),
+          });
+          } catch (e){
+              Logger.log("Error at function postPicLine: %s",e)  
+              doc.getBody().appendParagraph(Logger.getLog())
+          }
   }
   
   function postLine(text,reply_token){
