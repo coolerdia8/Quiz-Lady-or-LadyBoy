@@ -13,8 +13,9 @@ var ANSWER_MISS ='女';
 var ANSWER_OK ='おねぇ';
 var CONTINUE_YES='Yes';
 var CONTINUE_NO='NO';
-var QUIZNUMBERS='4';
+//var QUIZNUMBERS='1';
 var ALLMARU ='全問正解!おめでとう!!';
+var BATSU ='ブッブー！ 不正解で〜す';
 
 var News = 'タイのホットなニュース教えて';
 var NEWSMESSE ='こちらです↓\n';

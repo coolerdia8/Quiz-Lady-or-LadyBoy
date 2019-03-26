@@ -22,21 +22,48 @@ function doPost(e) {
     var pic_url;
     var name;
     var count=1;
-    var isquizNum =ss.getRange('H2').getValue();
+    var isquizNum =ss.getRange('J1').getValue();
+    var Quiznumbers =ss.getRange('J2').getValue();
     
     //Quizの初期化
-    if(isquizNum > QUIZNUMBERS ){
-      ss.getRange('H2').setValue(0);
+    if(isquizNum > Quiznumbers ){
+      ss.getRange('J1').setValue(1);
     }
 
     //クイズの処理
     switch(String(com)){
       case QUIZSTART: //「リッチメニューより  
         　
-          ss.getRange('H2').setValue(1);
+          ss.getRange('J1').setValue(1);
           pic_url = get_pic_url(ss);
 
-          postPicQ2Line(pic_url,reply_token)
+          var messages = [
+            {
+               "type": "template",
+               "altText": "this is a buttons template",
+               "template": {
+                   "type": "buttons",
+                   "actions": [
+                       {
+                           "type": "message",
+                           "label": ANSWER_MISS,
+                           "text": ANSWER_MISS
+                       },
+                       {
+                           "type": "message",
+                           "label": ANSWER_OK,
+                           "text": ANSWER_OK 
+                       }
+                   ],
+               "thumbnailImageUrl": pic_url,
+               "title": "女性かオネエどっち？",
+               "text": "下のボタンから選んでタップしてね",
+               "imageSize":"contain"
+             }
+           }
+          ]
+
+          postPicQ2Line(reply_token,messages)
           break;
       case ANSWER_OK:
           reply_messages ='正解!';
@@ -44,40 +71,38 @@ function doPost(e) {
           name = '写真の子は '+ name;
           
           //全問正解なら
-          if(isquizNum == QUIZNUMBERS){
+          if(isquizNum == Quiznumbers){
             reply_messages=ALLMARU;
-            ss.getRange('H2').setValue(0);
+            ss.getRange('J1').setValue(0);
             postAllLine(reply_messages, name,reply_token);
           }else{
             postALine(reply_messages, name,reply_token);          
           }
           break;
       case ANSWER_MISS://最初からを促す
-          ss.getRange('H2').setValue(0);
-          reply_messages ='Nooooo!';
+          ss.getRange('J1').setValue(0);
+          reply_messages =BATSU;
           
-          postLine(reply_messages, reply_token);
+          postLine(reply_messages, reply_token);//リトライのテキストを追加する
           break;
 
       case CONTINUE_YES://つぎの問題へ
-          count = ss.getRange('H2').getValue();
+          count = ss.getRange('J1').getValue();
           count++;
-          ss.getRange('H2').setValue(count);
-
+          ss.getRange('J1').setValue(count);
           pic_url = get_pic_url(ss);
 
           postPicQ2Line(pic_url,reply_token)
       break;
 
-      case CONTINUE_NO:
-          ss.getRange('H2').setValue(0);
+      case CONTINUE_NO://途中で終わる
+          ss.getRange('J1').setValue(0);
           //postENDLine(reply_messages, name,reply_token);
-          postLine("Fin!", reply_token);    
+          postLine('またチャレンジしてね!!\n', reply_token);    
       break;
 
-      default://それ以外    
-          //reply_messages[0] =  "error!"; 
-          postLine("error!", reply_token);
+      default://それ以外 
+          postLine("error!最初からリトライ", reply_token);
     }
 
     return ContentService.createTextOutput(JSON.stringify({'content': 'post ok'})).setMimeType(ContentService.MimeType.JSON);

@@ -11,8 +11,8 @@ function postAllLine(ome,name,reply_token){
             },
             {   
                 "type": 'sticker',
-                'packageId': 1,
-                'stickerId': 14
+                'packageId': 2,
+                'stickerId': 144
             },
         ]
         //返信設定
@@ -88,38 +88,12 @@ function postALine(seikai,name,reply_token){
          }
  }
 
-function postPicQ2Line(url,reply_token){
+function postPicQ2Line(reply_token,messages){
     /*
     * LINEに画像と質問を返します
     * @param{String}: 
     */
-     try{
-
-       var messages = [
-         {
-            "type": "template",
-            "altText": "this is a buttons template",
-            "template": {
-                "type": "buttons",
-                "actions": [
-                    {
-                        "type": "message",
-                        "label": ANSWER_MISS,
-                        "text": ANSWER_MISS
-                    },
-                    {
-                        "type": "message",
-                        "label": ANSWER_OK,
-                        "text": ANSWER_OK 
-                    }
-                ],
-            "thumbnailImageUrl": url,
-            "title": "女性かオネエどっち？",
-            "text": "下のボタンから選んでタップしてね",
-            "imageSize":"contain"
-          }
-        }
-       ]
+     try{       
        //返信設定
         var Rurl = 'https://api.line.me/v2/bot/message/reply';
 
@@ -135,44 +109,7 @@ function postPicQ2Line(url,reply_token){
          }),
         });
         } catch (e){
-            Logger.log("Error at function postPicLine: %s",e)  
-            doc.getBody().appendParagraph(Logger.getLog())
-        }
-}
-
-function postPicAndText2Line(url,reply_token){
-    /*
-    * LINEに画像とテキストを返します
-    * @param{String}: 
-    */
-     try{    
-       var messages = [
-         {
-           "type": "image",
-           "originalContentUrl": url,
-           "previewImageUrl": url
-         },
-         {
-          "type": "text",
-          "text": 'test'
-         }
-       ]
-       //返信設定
-        var Rurl = 'https://api.line.me/v2/bot/message/reply';
-
-       var res = UrlFetchApp.fetch(Rurl, {
-         'headers': {
-           'Content-Type': 'application/json; charset=UTF-8',
-           'Authorization': 'Bearer ' + LINE_ACCESS_TOKEN,
-         },
-         'method': 'post',
-         'payload': JSON.stringify({
-           'replyToken': reply_token,
-           'messages': messages,
-         }),
-        });
-        } catch (e){
-            Logger.log("Error at function postPicLine: %s",e)  
+            Logger.log("Error at function postPicQ2Line: %s",e)  
             doc.getBody().appendParagraph(Logger.getLog())
         }
 }
@@ -182,7 +119,7 @@ function postLine(text,reply_token){
     * LINEにテキストを返します
     * @param{String}: 文字起こししたテキスト
     */
-     try{    
+    try{    
        var messages = [
          {
            "type": "text",
@@ -203,8 +140,8 @@ function postLine(text,reply_token){
            'messages': messages,
          }),
         });
-        } catch (e){
+    } catch (e){
             Logger.log("Error at function postLine(text,reply_token): %s",e)  
             doc.getBody().appendParagraph(Logger.getLog())
-        }
+    }
 }
