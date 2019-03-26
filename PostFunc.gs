@@ -49,7 +49,7 @@ function postALine(seikai,name,reply_token){
             },
             {
                 "type": "template",
-                "altText": "this is a confirm template",
+                "altText": "クイズを続けますか？",
                 "template": {
                     "type": "confirm",
                     "actions": [
@@ -144,4 +144,40 @@ function postLine(text,reply_token){
             Logger.log("Error at function postLine(text,reply_token): %s",e)  
             doc.getBody().appendParagraph(Logger.getLog())
     }
+}
+
+function makePicQ2Line(url){
+    try{
+    
+        var messages = [
+            {
+                "type": "template",
+                "altText": "クイズ出題中･･･",
+                "template": {
+                    "type": "buttons",
+                    "actions": [
+                        {
+                            "type": "message",
+                            "label": ANSWER_MISS,
+                            "text": ANSWER_MISS
+                        },
+                        {
+                            "type": "message",
+                            "label": ANSWER_OK,
+                            "text": ANSWER_OK 
+                        }
+                    ],
+                "thumbnailImageUrl": url,
+                "title": "女性かオネエどっち？",
+                "text": "下のボタンから選んでタップしてね",
+                "imageSize":"contain"
+                }
+            }
+        ]
+        } catch (e){
+            Logger.log("Error at function makePicQ2Line(url): %s",e)  
+            doc.getBody().appendParagraph(Logger.getLog())
+    }
+
+    return messages;
 }

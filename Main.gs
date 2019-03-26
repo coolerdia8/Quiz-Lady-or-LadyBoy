@@ -24,6 +24,7 @@ function doPost(e) {
     var count=1;
     var isquizNum =ss.getRange('J1').getValue();
     var Quiznumbers =ss.getRange('J2').getValue();
+    var messages;
     
     //Quizの初期化
     if(isquizNum > Quiznumbers ){
@@ -37,33 +38,8 @@ function doPost(e) {
           ss.getRange('J1').setValue(1);
           pic_url = get_pic_url(ss);
 
-          var messages = [
-            {
-               "type": "template",
-               "altText": "this is a buttons template",
-               "template": {
-                   "type": "buttons",
-                   "actions": [
-                       {
-                           "type": "message",
-                           "label": ANSWER_MISS,
-                           "text": ANSWER_MISS
-                       },
-                       {
-                           "type": "message",
-                           "label": ANSWER_OK,
-                           "text": ANSWER_OK 
-                       }
-                   ],
-               "thumbnailImageUrl": pic_url,
-               "title": "女性かオネエどっち？",
-               "text": "下のボタンから選んでタップしてね",
-               "imageSize":"contain"
-             }
-           }
-          ]
-
-          postPicQ2Line(reply_token,messages)
+          messages = makePicQ2Line(pic_url);
+          postPicQ2Line(reply_token,messages);
           break;
       case ANSWER_OK:
           reply_messages ='正解!';
@@ -91,8 +67,9 @@ function doPost(e) {
           count++;
           ss.getRange('J1').setValue(count);
           pic_url = get_pic_url(ss);
+          messages = makePicQ2Line(pic_url);
 
-          postPicQ2Line(pic_url,reply_token)
+          postPicQ2Line(reply_token,messages);
       break;
 
       case CONTINUE_NO://途中で終わる

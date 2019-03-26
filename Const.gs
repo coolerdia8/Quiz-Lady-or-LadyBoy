@@ -9,8 +9,8 @@ var GOOGLE_DOCS_ID = PROPERTIES.getProperty('GOOGLE_DOCS_ID');
 var doc = DocumentApp.openById(GOOGLE_DOCS_ID);
 
 var QUIZSTART ='クイズ開始';
-var ANSWER_MISS ='女';
-var ANSWER_OK ='おねぇ';
+var ANSWER_MISS ='女性';
+var ANSWER_OK ='男性';
 var CONTINUE_YES='Yes';
 var CONTINUE_NO='NO';
 //var QUIZNUMBERS='1';
