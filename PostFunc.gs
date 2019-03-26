@@ -1,8 +1,8 @@
 function postRetry(text,reply_token){
     try{
 
-        var messages = [            
-            {   
+        var messages = [
+            {
                 "type": "text",
                 "text": text
             },
@@ -29,7 +29,7 @@ function postRetry(text,reply_token){
         ]
         //返信設定
          var Rurl = 'https://api.line.me/v2/bot/message/reply';
- 
+
         var res = UrlFetchApp.fetch(Rurl, {
           'headers': {
             'Content-Type': 'application/json; charset=UTF-8',
@@ -42,7 +42,7 @@ function postRetry(text,reply_token){
           }),
          });
          } catch (e){
-             Logger.log("Error at function postRetry: %s",e)  
+             Logger.log("Error at function postRetry: %s",e)
              doc.getBody().appendParagraph(Logger.getLog())
          }
 }
@@ -50,15 +50,15 @@ function postRetry(text,reply_token){
 function postAllLine(ome,name,reply_token){
     try{
         var messages = [
-            {   
+            {
                 "type": "text",
                 "text": name
             },
-            {   
+            {
                 "type": "text",
                 "text": ome
             },
-            {   
+            {
                 "type": 'sticker',
                 'packageId': 2,
                 'stickerId': 144
@@ -66,7 +66,7 @@ function postAllLine(ome,name,reply_token){
         ]
         //返信設定
          var Rurl = 'https://api.line.me/v2/bot/message/reply';
- 
+
             var res = UrlFetchApp.fetch(Rurl, {
             'headers': {
                 'Content-Type': 'application/json; charset=UTF-8',
@@ -79,7 +79,7 @@ function postAllLine(ome,name,reply_token){
           }),
          });
         } catch (e){
-             Logger.log("Error at function postAllLine: %s",e)  
+             Logger.log("Error at function postAllLine: %s",e)
              doc.getBody().appendParagraph(Logger.getLog())
         }
 }
@@ -88,11 +88,11 @@ function postALine(seikai,name,reply_token){
     try{
 
         var messages = [
-            {   
+            {
                 "type": "text",
                 "text": seikai
             },
-            {   
+            {
                 "type": "text",
                 "text": name
             },
@@ -119,7 +119,7 @@ function postALine(seikai,name,reply_token){
         ]
         //返信設定
          var Rurl = 'https://api.line.me/v2/bot/message/reply';
- 
+
         var res = UrlFetchApp.fetch(Rurl, {
           'headers': {
             'Content-Type': 'application/json; charset=UTF-8',
@@ -132,7 +132,7 @@ function postALine(seikai,name,reply_token){
           }),
          });
          } catch (e){
-             Logger.log("Error at function postALine: %s",e)  
+             Logger.log("Error at function postALine: %s",e)
              doc.getBody().appendParagraph(Logger.getLog())
          }
  }
@@ -140,9 +140,9 @@ function postALine(seikai,name,reply_token){
 function postPicQ2Line(reply_token,messages){
     /*
     * LINEに画像と質問を返します
-    * @param{String}: 
+    * @param{String}:
     */
-     try{       
+     try{
        //返信設定
         var Rurl = 'https://api.line.me/v2/bot/message/reply';
 
@@ -158,7 +158,7 @@ function postPicQ2Line(reply_token,messages){
          }),
         });
         } catch (e){
-            Logger.log("Error at function postPicQ2Line: %s",e)  
+            Logger.log("Error at function postPicQ2Line: %s",e)
             doc.getBody().appendParagraph(Logger.getLog())
         }
 }
@@ -168,7 +168,7 @@ function postENDLine(text,reply_token){
     * LINEにテキストを返します
     * @param{String}: 文字起こししたテキスト
     */
-    try{    
+    try{
        var messages = [
          {
            "type": "text",
@@ -190,14 +190,14 @@ function postENDLine(text,reply_token){
          }),
         });
     } catch (e){
-            Logger.log("Error at function postEndLine(text,reply_token): %s",e)  
+            Logger.log("Error at function postEndLine(text,reply_token): %s",e)
             doc.getBody().appendParagraph(Logger.getLog())
     }
 }
 
 function makePicQ2Line(url){
     try{
-    
+
         var messages = [
             {
                 "type": "template",
@@ -213,18 +213,18 @@ function makePicQ2Line(url){
                         {
                             "type": "message",
                             "label": ANSWER_OK,
-                            "text": ANSWER_OK 
+                            "text": ANSWER_OK
                         }
                     ],
                 "thumbnailImageUrl": url,
-                "title": "女性かオネエどっち？",
+                "title": "女性か男性どっち？",
                 "text": "下のボタンから選んでタップしてね",
                 "imageSize":"contain"
                 }
             }
         ]
         } catch (e){
-            Logger.log("Error at function makePicQ2Line(url): %s",e)  
+            Logger.log("Error at function makePicQ2Line(url): %s",e)
             doc.getBody().appendParagraph(Logger.getLog())
     }
 
