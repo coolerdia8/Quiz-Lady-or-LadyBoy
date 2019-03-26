@@ -67,23 +67,22 @@ function doPost(e) {
       case CONTINUE_YES://つぎの問題の処理
           count = ss.getRange('J1').getValue();
           count++;
-          ss.getRange('J1').setValue(count);
+          //ss.getRange('J1').setValue(count);
+          ss.getRange('J1').setValue(5);
           pic_url = get_pic_url(ss);
           if(ss.getRange('A'+count).getValue()=='ハリセン近藤春菜'){
-              //HarunaPost(pic_url);
-              ss.getRange('B12').setValue(0);
+              messages = MakeHarunaQuiz(pic_url);
+              postPicQ2Line(reply_token,messages);
               break;
           }
-
           messages = makePicQ2Line(pic_url);
-
           postPicQ2Line(reply_token,messages);
-      break;
+          break;
 
       case CONTINUE_NO://クイズの途中で終わる
           ss.getRange('J1').setValue(0);
           postENDLine('またチャレンジしてね!!', reply_token);
-      break;
+          break;
       case TAKUNO:
         ss.getRange('J1').setValue(0);
           reply_messages =TIGAU;
