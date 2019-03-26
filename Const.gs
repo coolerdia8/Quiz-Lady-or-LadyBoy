@@ -17,6 +17,11 @@ var CONTINUE_NO='NO';
 var ALLMARU ='全問正解!おめでとう!!';
 var BATSU ='ブッブー！ 不正解で〜す';
 var RETRY='すたーと';
+var TAKUNO ='角野卓三！？';
+var JYANEYO ='角野卓三じゃねーわ!!';
+var TIGAU ='違います。';
 
 var News = 'タイのホットなニュース教えて';
 var NEWSMESSE ='こちらです↓\n';
+var HARUNA_ANS='女性...';
+var KOURAKU ='今日ラーメン屋さんお休みですか？';
