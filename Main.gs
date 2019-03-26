@@ -57,9 +57,10 @@ function doPost(e) {
           break;
       case ANSWER_MISS://最初からを促す
           ss.getRange('J1').setValue(0);
-          reply_messages =BATSU;
-          
-          postLine(reply_messages, reply_token);//リトライのテキストを追加する
+          reply_messages =BATSU;          
+          //postLine(reply_messages, reply_token);
+          //リトライのテキストを送る
+          postRetry(reply_messages, reply_token);
           break;
 
       case CONTINUE_YES://つぎの問題へ
@@ -72,14 +73,13 @@ function doPost(e) {
           postPicQ2Line(reply_token,messages);
       break;
 
-      case CONTINUE_NO://途中で終わる
-          ss.getRange('J1').setValue(0);
-          //postENDLine(reply_messages, name,reply_token);
-          postLine('またチャレンジしてね!!\n', reply_token);    
+      case CONTINUE_NO://クイズの途中で終わる
+          ss.getRange('J1').setValue(0);          
+          postENDLine('またチャレンジしてね!!', reply_token);    
       break;
 
       default://それ以外 
-          postLine("error!最初からリトライ", reply_token);
+        postRetry("error!最初からリトライ", reply_token);
     }
 
     return ContentService.createTextOutput(JSON.stringify({'content': 'post ok'})).setMimeType(ContentService.MimeType.JSON);

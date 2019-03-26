@@ -8,7 +8,7 @@ var LINE_ACCESS_TOKEN = PROPERTIES.getProperty('LINE_ACCESS_TOKEN');//アクセ�
 var GOOGLE_DOCS_ID = PROPERTIES.getProperty('GOOGLE_DOCS_ID');
 var doc = DocumentApp.openById(GOOGLE_DOCS_ID);
 
-var QUIZSTART ='クイズ開始';
+var QUIZSTART ='すたーと';
 var ANSWER_MISS ='女性';
 var ANSWER_OK ='男性';
 var CONTINUE_YES='Yes';
@@ -16,6 +16,7 @@ var CONTINUE_NO='NO';
 //var QUIZNUMBERS='1';
 var ALLMARU ='全問正解!おめでとう!!';
 var BATSU ='ブッブー！ 不正解で〜す';
+var RETRY='すたーと';
 
 var News = 'タイのホットなニュース教えて';
 var NEWSMESSE ='こちらです↓\n';

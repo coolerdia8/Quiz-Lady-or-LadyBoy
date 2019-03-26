@@ -1,3 +1,52 @@
+function postRetry(text,reply_token){
+    try{
+
+        var messages = [            
+            {   
+                "type": "text",
+                "text": text
+            },
+            {
+                "type": "template",
+                "altText": "もう一度始めからトライしますか？",
+                "template": {
+                    "type": "confirm",
+                    "actions": [
+                        {
+                            "type": "message",
+                            "label": CONTINUE_YES,
+                            "text": RETRY
+                        },
+                        {
+                            "type": "message",
+                            "label": CONTINUE_NO,
+                            "text": CONTINUE_NO
+                        }
+                    ],
+                    "text": "もう一度トライしますか？"
+                }
+            }
+        ]
+        //返信設定
+         var Rurl = 'https://api.line.me/v2/bot/message/reply';
+ 
+        var res = UrlFetchApp.fetch(Rurl, {
+          'headers': {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ' + LINE_ACCESS_TOKEN,
+          },
+          'method': 'post',
+          'payload': JSON.stringify({
+            'replyToken': reply_token,
+            'messages': messages,
+          }),
+         });
+         } catch (e){
+             Logger.log("Error at function postRetry: %s",e)  
+             doc.getBody().appendParagraph(Logger.getLog())
+         }
+}
+
 function postAllLine(ome,name,reply_token){
     try{
         var messages = [
@@ -114,7 +163,7 @@ function postPicQ2Line(reply_token,messages){
         }
 }
 
-function postLine(text,reply_token){
+function postENDLine(text,reply_token){
     /*
     * LINEにテキストを返します
     * @param{String}: 文字起こししたテキスト
@@ -141,7 +190,7 @@ function postLine(text,reply_token){
          }),
         });
     } catch (e){
-            Logger.log("Error at function postLine(text,reply_token): %s",e)  
+            Logger.log("Error at function postEndLine(text,reply_token): %s",e)  
             doc.getBody().appendParagraph(Logger.getLog())
     }
 }
