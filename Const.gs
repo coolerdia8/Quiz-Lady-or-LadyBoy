@@ -17,11 +17,13 @@ var CONTINUE_NO='NO';
 var ALLMARU ='全問正解!おめでとう!!';
 var BATSU ='ブッブー！ 不正解で〜す';
 var RETRY='すたーと';
-var TAKUNO ='角野卓三!?';
-var JYANEYO ='角野卓三じゃねーわ!!';
+var TAKUNO ='角野卓造!?';
+var JYANEYO ='角野卓造じゃねーわ!!';
 var TIGAU ='違います';
-
+var QUIZ_NUM_CEL ='J1';
 var News = 'タイのホットなニュース教えて';
 var NEWSMESSE ='こちらです↓\n';
 var HARUNA_ANS='女性...';
 var KOURAKU ='ﾗｰﾒﾝ屋お休みですか?';
+var FINMESSA ='またチャレンジしてね!!';
+var FIN_RETRY ='\nクイズの開始は"'+QUIZSTART+'"と送信してね！' ;
