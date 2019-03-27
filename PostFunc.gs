@@ -59,7 +59,7 @@ function postAllLine(ome,name,reply_token){
                 "text": ome
             },
             {
-                "type": 'sticker',
+                "type": 'sticker',//スタンプ
                 'packageId': 2,
                 'stickerId': 144
             },

@@ -25,6 +25,7 @@ function doPost(e) {
     var isquizNum =ss.getRange(QUIZ_NUM_CEL).getValue();
     var Quiznumbers =ss.getRange('J2').getValue();
     var messages;
+    var reply_pic='';
 
     //Quizの初期化
     if(isquizNum > Quiznumbers ){
@@ -33,8 +34,7 @@ function doPost(e) {
 
     //クイズの処理
     switch(String(com)){
-      case QUIZSTART: //「リッチメニューより
-        　
+      case QUIZSTART: //「リッチメニューより        　
           ss.getRange(QUIZ_NUM_CEL).setValue(1);
           pic_url = get_pic_url(ss);
 
@@ -57,6 +57,7 @@ function doPost(e) {
             postALine(reply_messages, name,reply_token);
           }
           break;
+
       case ANSWER_MISS://最初からを促す
           ss.getRange(QUIZ_NUM_CEL).setValue(0);
           reply_messages =BATSU;
@@ -70,11 +71,13 @@ function doPost(e) {
           ss.getRange(QUIZ_NUM_CEL).setValue(count);
           //ss.getRange(QUIZ_NUM_CEL).setValue(5);
           pic_url = get_pic_url(ss);
+
           if(ss.getRange('A'+count).getValue()=='ハリセン近藤春菜'){
               messages = MakeHarunaQuiz(pic_url);
               postPicQ2Line(reply_token,messages);
               break;
           }
+
           messages = makePicQ2Line(pic_url);
           postPicQ2Line(reply_token,messages);
           break;
@@ -83,16 +86,19 @@ function doPost(e) {
           ss.getRange(QUIZ_NUM_CEL).setValue(0);
           postENDLine(FINMESSA+FIN_RETRY, reply_token);
           break;
+
       case TAKUNO:
-        ss.getRange(QUIZ_NUM_CEL).setValue(0);
-          reply_messages =TIGAU;
-          postRetry(reply_messages, reply_token);
+          ss.getRange(QUIZ_NUM_CEL).setValue(0);
+          reply_pic =ss.getRange('D5').getValue();
+          postHarunaRetry(reply_pic, reply_token);
           break;
+
       case KOURAKU:
-        ss.getRange(QUIZ_NUM_CEL).setValue(0);
-          reply_messages =JYANEYO;
-          postRetry(reply_messages, reply_token);
+          ss.getRange(QUIZ_NUM_CEL).setValue(0);
+          reply_pic =ss.getRange('I5').getValue();
+          postHarunaRetry(reply_pic, reply_token);
           break;
+
       default://それ以外
         postRetry("error!最初からリトライ", reply_token);
     }

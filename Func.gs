@@ -58,3 +58,53 @@ function MakeHarunaQuiz(url){
 
     return messages;
 }
+
+function postHarunaRetry(url,reply_token){
+    try{
+        //ハルナの間違い画像を送る
+        var messages = [
+            {
+                "type": "image",
+                "originalContentUrl": url,
+                "previewImageUrl": url
+            },
+            {
+                "type": "template",
+                "altText": "もう一度始めからトライしますか？",
+                "template": {
+                    "type": "confirm",
+                    "actions": [
+                        {
+                            "type": "message",
+                            "label": CONTINUE_YES,
+                            "text": RETRY
+                        },
+                        {
+                            "type": "message",
+                            "label": CONTINUE_NO,
+                            "text": CONTINUE_NO
+                        }
+                    ],
+                    "text": "もう一度トライしますか？"
+                }
+            }
+        ]
+        //返信設定
+         var Rurl = 'https://api.line.me/v2/bot/message/reply';
+
+        var res = UrlFetchApp.fetch(Rurl, {
+          'headers': {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ' + LINE_ACCESS_TOKEN,
+          },
+          'method': 'post',
+          'payload': JSON.stringify({
+            'replyToken': reply_token,
+            'messages': messages,
+          }),
+         });
+         } catch (e){
+             Logger.log("Error at function postHarunaRetry: %s",e)
+             doc.getBody().appendParagraph(Logger.getLog())
+         }
+}
