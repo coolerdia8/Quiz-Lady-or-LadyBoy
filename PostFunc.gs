@@ -47,7 +47,7 @@ function postRetry(text,reply_token){
          }
 }
 
-function postAllLine(ome,name,reply_token){
+function postAllSekaiLine(ome,name,reply_token){
     try{
         var messages = [
             {
@@ -63,6 +63,14 @@ function postAllLine(ome,name,reply_token){
                 'packageId': 2,
                 'stickerId': 144
             },
+            {
+                "type": "text",
+                "text": ANKEETO_URL
+            },
+            {
+                "type": "text",
+                "text": FIN_RETRY
+            }
         ]
         //返信設定
          var Rurl = 'https://api.line.me/v2/bot/message/reply';
@@ -163,16 +171,24 @@ function postPicQ2Line(reply_token,messages){
         }
 }
 
-function postENDLine(text,reply_token){
+function postENDLine(reply_token){
     /*
-    * LINEにテキストを返します
+    * LINEにテキストとアンケートフォームを返します
     * @param{String}: 文字起こししたテキスト
     */
     try{
        var messages = [
          {
            "type": "text",
-           "text": text
+           "text": FINMESSA
+         },
+         {
+           "type": "text",
+           "text": ANKEETO_URL
+         },
+         {
+           "type": "text",
+           "text": FIN_RETRY
          }
        ]
        //返信設定

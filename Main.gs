@@ -52,7 +52,7 @@ function doPost(e) {
           if(isquizNum == Quiznumbers){
             reply_messages=ALLMARU;
             ss.getRange(QUIZ_NUM_CEL).setValue(0);
-            postAllLine(reply_messages, name,reply_token);
+            postAllSekaiLine(reply_messages, name,reply_token);
           }else{
             postALine(reply_messages, name,reply_token);
           }
@@ -84,7 +84,7 @@ function doPost(e) {
 
       case CONTINUE_NO://クイズの途中で終わる
           ss.getRange(QUIZ_NUM_CEL).setValue(0);
-          postENDLine(FINMESSA+FIN_RETRY, reply_token);
+          postENDLine(reply_token);
           break;
 
       case TAKUNO:
