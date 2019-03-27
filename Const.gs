@@ -27,4 +27,4 @@ var HARUNA_ANS='女性...';
 var KOURAKU ='ﾗｰﾒﾝ屋お休みですか?';
 var FINMESSA ='またチャレンジしてね!!';
 var FIN_RETRY ='またクイズしたい時は"'+QUIZSTART+'"って送信してね！' ;
-var ANKEETO_URL ='よかったら下記URLからこのクイズに関するアンケートに答えてね!\nhttps://forms.gle/SMm7Qi8LZaUAmbD17';
+var ANKEETO_URL ='よかったら下記URLからこのクイズに関するアンケートに答えてね!\nhttps://forms.gle/SMm7Qi8LZaUAmbD17\n(1分程度で終わります)';
